@@ -1,8 +1,10 @@
 def main():
     from fastapi.openapi.utils import get_openapi
-    from main import app
+    from server import Server
     import json
     import os
+
+    app = Server().app
 
     file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'docs', 'openapi.json')
     with open(file_path, 'w') as f:
