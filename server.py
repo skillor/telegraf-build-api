@@ -6,7 +6,7 @@ from fastapi.requests import Request
 from fastapi.responses import Response, FileResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
-from telegraf_builder.builder import Builder
+from telegraf_builder.builder import Builder, AVAILABLE_GO_OS, AVAILABLE_GO_ARCH
 from telegraf_builder.plugin_manager import PluginManager
 from telegraf_builder.plugins import Plugins
 
@@ -75,6 +75,14 @@ class Server:
         async def get_plugins(api_key: str):
             await self.authorize(api_key)
             return JSONResponse(content=self.plugin_manager.plugins.to_dict())
+
+        @self.app.get(path='/build-info', response_class=JSONResponse)
+        async def get_build_info(api_key: str):
+            await self.authorize(api_key)
+            return JSONResponse(content={
+                'os': AVAILABLE_GO_OS,
+                'arch': AVAILABLE_GO_ARCH,
+            })
 
         @self.app.post(path='/binary', response_class=FileResponse)
         async def binary(api_key: str,
