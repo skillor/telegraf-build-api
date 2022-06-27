@@ -83,6 +83,11 @@ class Server:
                 'os': AVAILABLE_GO_OS,
             })
 
+        @self.app.get(path='/source-info', response_class=JSONResponse)
+        async def get_source_info(api_key: str):
+            await self.authorize(api_key)
+            return JSONResponse(content=self.builder.source_info)
+
         @self.app.post(path='/binary', response_class=FileResponse)
         async def binary(api_key: str,
                          go_os: str = Body(),

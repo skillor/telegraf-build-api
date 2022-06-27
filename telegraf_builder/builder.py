@@ -8,6 +8,7 @@ import uuid
 import subprocess
 
 from .cleaner import rm_dir
+from .installer import get_git_info
 from .plugins import Plugins
 
 if TYPE_CHECKING:
@@ -79,6 +80,7 @@ class Builder:
     def __init__(self, plugin_manager: 'PluginManager', telegraf_dir: str, build_dir: str, binary_dir: str):
         self.plugin_manager = plugin_manager
         self.telegraf_dir = telegraf_dir
+        self.source_info = get_git_info(telegraf_dir)
         if not os.path.exists(build_dir):
             os.mkdir(build_dir)
         self.build_dir = build_dir
