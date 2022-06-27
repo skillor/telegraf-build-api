@@ -13,59 +13,31 @@ from .plugins import Plugins
 if TYPE_CHECKING:
     from .plugin_manager import PluginManager
 
-AVAILABLE_GO_OS = [
-    'aix',
-    'android',
-    'darwin',
-    'dragonfly',
-    'freebsd',
-    'hurd',
-    'illumos',
-    'ios',
-    'js',
-    'linux',
-    'nacl',
-    'netbsd',
-    'openbsd',
-    'plan9',
-    'solaris',
-    'windows',
-    'zos',
-]
 
-AVAILABLE_GO_ARCH = [
-    '386',
-    'amd64',
-    'amd64p32',
-    'arm',
-    'armbe',
-    'arm64',
-    'arm64be',
-    'loong64',
-    'mips',
-    'mipsle',
-    'mips64',
-    'mips64le',
-    'mips64p32',
-    'mips64p32le',
-    'ppc',
-    'ppc64',
-    'ppc64le',
-    'riscv',
-    'riscv64',
-    's390',
-    's390x',
-    'sparc',
-    'sparc64',
-    'wasm',
-]
+AVAILABLE_GO_OS = {
+    'aix': ['ppc64'],
+    'android': ['386', 'amd64', 'arm', 'arm64'],
+    'darwin': ['amd64', 'arm64'],
+    'dragonfly': ['amd64'],
+    'freebsd': ['386', 'amd64', 'arm', 'arm64'],
+    'illumos': ['amd64'],
+    'ios': ['amd64', 'arm64'],
+    'js': ['wasm'],
+    'linux': ['386', 'amd64', 'arm', 'arm64', 'mips', 'mips64', 'mips64le',
+              'mipsle', 'ppc64', 'ppc64le', 'riscv64', 's390x'],
+    'netbsd': ['386', 'amd64', 'arm', 'arm64'],
+    'openbsd': ['386', 'amd64', 'arm', 'arm64', 'mips64'],
+    'plan9': ['386', 'amd64', 'arm'],
+    'solaris': ['amd64'],
+    'windows': ['386', 'amd64', 'arm', 'arm64'],
+}
 
 
 class BuildInfo:
     def __init__(self, go_os: str, go_arch: str, plugins: Plugins):
         if go_os not in AVAILABLE_GO_OS:
             raise Exception('GO OS "{}" unknown'.format(go_os))
-        if go_arch not in AVAILABLE_GO_ARCH:
+        if go_arch not in AVAILABLE_GO_OS[go_os]:
             raise Exception('GO ARCH "{}" unknown'.format(go_arch))
         self.go_os = go_os
         self.go_arch = go_arch
