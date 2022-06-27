@@ -120,7 +120,7 @@ class Server:
         uvicorn.run(self.app)
 
 
-def create_server(settings=None, example_settings=None):
+def create_server(environment, settings=None, example_settings=None):
     if settings is None:
         settings = {}
     if example_settings is None:
@@ -130,12 +130,16 @@ def create_server(settings=None, example_settings=None):
     from telegraf_builder.cleaner import rm_dir
 
     def get_setting(key):
+        v = environment.get(key)
+        if v is not None:
+            return v
         if key in settings:
             return settings[key]
         return example_settings[key]
 
     rm_dir(get_setting('TELEGRAF_BUILD_DIR'))
     rm_dir(get_setting('TELEGRAF_BINARY_DIR'))
+    rm_dir(get_setting('TELEGRAF_DIR'))
     install(get_setting('TELEGRAF_GIT_URL'), get_setting('TELEGRAF_GIT_BRANCH'), get_setting('TELEGRAF_DIR'))
 
     plugin_manager = PluginManager(get_setting('TELEGRAF_DIR'))
