@@ -9,10 +9,8 @@ GLOBAL_SETTINGS = {
     'TELEGRAF_DIR': os.path.join(current_dir, 'telegraf-src'),
     'TELEGRAF_BUILD_DIR': os.path.join(current_dir, 'tmp', 'src'),
     'TELEGRAF_BINARY_DIR': os.path.join(current_dir, 'tmp', 'bin'),
-    'CORS_ORIGINS': [
-        '*'
-    ],
-    'API_KEYS': [
-        # '123qwe',
-    ],
+    # CORS ORIGINS, separate by comma
+    'CORS_ORIGINS': '*',
+    # API KEYS, separate by comma
+    'API_KEYS': '',
 }

@@ -24,10 +24,13 @@ class Server:
                  plugin_manager: PluginManager = None,
                  builder: Builder = None,
                  debug=False,
-                 api_keys=None,
-                 cors_origins=None,
+                 api_keys='',
+                 cors_origins='',
                  ):
         super().__init__()
+
+        cors_origins = cors_origins.split(',')
+        api_keys = api_keys.split(',')
 
         if api_keys is not None and len(api_keys) == 0:
             api_keys = None
@@ -52,9 +55,6 @@ class Server:
             redoc_url=redoc_url,
             openapi_url=openapi_url,
         )
-
-        if cors_origins is None:
-            cors_origins = []
 
         self.app.add_middleware(
             CORSMiddleware,
