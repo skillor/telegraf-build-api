@@ -1,5 +1,9 @@
 # Telegraf Build Api
 
+## Information
+
+All settings can be overwritten with environment variables with the same name.
+
 ## Installation
 
 ### Setup in Unix
