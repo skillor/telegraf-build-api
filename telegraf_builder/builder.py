@@ -130,7 +130,7 @@ class Builder:
         build_path = os.path.join(working_dir, 'build' + os.sep)
 
         result = subprocess.run(['go', 'build', '-o', build_path, './cmd/telegraf'],
-                                shell=True,
+                                shell=False,
                                 cwd=working_dir,
                                 env=dict(os.environ, GOOS=build_info.go_os, GOARCH=build_info.go_arch),
                                 stdout=subprocess.DEVNULL,
