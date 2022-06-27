@@ -82,10 +82,10 @@ class Builder:
         self.telegraf_dir = telegraf_dir
         self.source_info = get_git_info(telegraf_dir)
         if not os.path.exists(build_dir):
-            os.mkdirs(build_dir)
+            os.makedirs(build_dir)
         self.build_dir = build_dir
         if not os.path.exists(binary_dir):
-            os.mkdirs(binary_dir)
+            os.makedirs(binary_dir)
         self.binary_dir = binary_dir
 
         self.thread_pool = futures.ThreadPoolExecutor()
