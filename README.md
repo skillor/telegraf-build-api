@@ -14,6 +14,8 @@ All settings can be overwritten with environment variables with the same name.
 
     docker run --rm -d -p 8000:80 --env API_KEYS=123qwe skillor/telegraf-build-api
 
+docker image can be found here: https://hub.docker.com/r/skillor/telegraf-build-api
+
 ### Setup in Unix
 
 > Install Go Version accordingly to your Telegraf Version (https://github.com/influxdata/telegraf/#build-from-source)
