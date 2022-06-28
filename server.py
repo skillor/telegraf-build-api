@@ -139,7 +139,8 @@ def create_server(environment, settings=None, example_settings=None):
 
     rm_dir(get_setting('TELEGRAF_BUILD_DIR'))
     rm_dir(get_setting('TELEGRAF_BINARY_DIR'))
-    rm_dir(get_setting('TELEGRAF_DIR'))
+    if get_setting('UPDATE_TELEGRAF_ON_RESTART') == '1':
+        rm_dir(get_setting('TELEGRAF_DIR'))
     install(get_setting('TELEGRAF_GIT_URL'), get_setting('TELEGRAF_GIT_BRANCH'), get_setting('TELEGRAF_DIR'))
 
     plugin_manager = PluginManager(get_setting('TELEGRAF_DIR'))
@@ -155,5 +156,5 @@ def create_server(environment, settings=None, example_settings=None):
         builder=builder,
         cors_origins=get_setting('CORS_ORIGINS'),
         api_keys=get_setting('API_KEYS'),
-        debug=get_setting('WEBSERVER_DEBUG'),
+        debug=get_setting('WEBSERVER_DEBUG') == '1',
     )
